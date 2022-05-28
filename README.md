@@ -1,6 +1,6 @@
 # VNode
 
-> nestjs mongo redis
+> nestjs mongo redis typeorm
 
 ![Alt](https://repobeats.axiom.co/api/embed/fd5f6c0c07eaaa16a9a32ed5067294da6dbdd4f9.svg "Repobeats analytics image")
 
@@ -22,7 +22,7 @@ yarn start:dev
 
 ```bash
 # mongo uri
-MONGO_URI: mongodb://localhost:27017/xxx
+MONGO_URI: mongodb://localhost:27017/test (default)
 
 # redis
 REDIS_HOST: localhost

@@ -1,30 +1,31 @@
 import { Injectable } from '@nestjs/common'
-import { InjectModel } from '@nestjs/mongoose'
-import { Model } from 'mongoose'
-import { User, UserDocument } from './schema/user.schema'
+import { InjectRepository } from '@nestjs/typeorm'
+import { User } from '../entity/user.entity'
+import { MongoRepository } from 'typeorm'
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) {}
+  constructor(
+    @InjectRepository(User)
+    private usersRepository: MongoRepository<User>,
+  ) {}
 
-  async create(): Promise<User> {
+  create(): Promise<User> {
     const u = new User()
-    u.name = 'test'
-    u.age = 10
-    const user = await this.userModel.create(u)
-    return user
+    u.name = 'zs'
+    u.age = 20
+    return this.usersRepository.save(u)
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userModel.find().exec()
+  findAll(): Promise<User[]> {
+    return this.usersRepository.find()
   }
 
-  async findOne(id: string): Promise<User> {
-    return this.userModel.findOne({ _id: id }).exec()
+  findOne(id: string): Promise<User> {
+    return this.usersRepository.findOneBy(id)
   }
 
-  async delete(id: string) {
-    const deletedUser = await this.userModel.findByIdAndRemove({ _id: id }).exec()
-    return deletedUser
+  async remove(id: string): Promise<void> {
+    await this.usersRepository.delete(id)
   }
 }

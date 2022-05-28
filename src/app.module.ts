@@ -6,9 +6,10 @@ import { TjobModule } from './tasks/tjob.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import mongoConfig from './config/mongo.config'
 import redisConfig from './config/redis.config'
-import { UserModule } from './user/user.module'
-import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose'
 import { RedisClientOptions } from 'redis'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { UserModule } from './user/user.module'
+import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions'
 
 @Module({
   imports: [
@@ -18,9 +19,9 @@ import { RedisClientOptions } from 'redis'
       expandVariables: true,
       load: [mongoConfig, redisConfig],
     }),
-    MongooseModule.forRootAsync({
+    TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (config: ConfigService) => ({ ...config.get<MongooseModuleOptions>('mongo') }),
+      useFactory: (config: ConfigService) => ({ ...config.get<MongoConnectionOptions>('mongo') }),
       inject: [ConfigService],
     }),
     CacheModule.registerAsync({

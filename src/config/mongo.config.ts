@@ -1,17 +1,12 @@
 import { registerAs } from '@nestjs/config'
-import { MongooseModuleOptions } from '@nestjs/mongoose'
+import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions'
 
-const connectionFactory = {
-  uri: process.env.MONGO_URI || 'mongodb://localhost:27017/test',
-  retryAttempts: Number.MAX_VALUE,
-  retryDelay: 1500,
-  autoCreate: true,
-  maxIdleTimeMS: 30000,
-  maxPoolSize: 64,
-  minPoolSize: 32,
-  socketTimeoutMS: 30000,
+const connectionFactory: MongoConnectionOptions = {
+  type: 'mongodb',
+  url: process.env.MONGO_URI || 'mongodb://localhost:27017/test',
+  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  connectTimeoutMS: 30000,
   useNewUrlParser: true,
   useUnifiedTopology: true,
 }
-
-export default registerAs('mongo', (): MongooseModuleOptions => connectionFactory)
+export default registerAs('mongo', (): MongoConnectionOptions => connectionFactory)

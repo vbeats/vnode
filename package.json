@@ -1,10 +1,10 @@
 {
   "name": "vnode",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "version": "1.0.0",
+  "description": "vnode脚手架",
+  "author": "bootvue@gmail.com",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
@@ -24,17 +24,18 @@
     "@nestjs/common": "^8.0.0",
     "@nestjs/config": "^2.0.1",
     "@nestjs/core": "^8.0.0",
-    "@nestjs/mongoose": "^9.1.0",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/schedule": "^2.0.1",
+    "@nestjs/typeorm": "^8.0.4",
     "cache-manager": "^3.6.3",
     "cache-manager-redis-store": "^2.0.0",
     "dayjs": "^1.11.2",
-    "mongoose": "^6.3.4",
+    "mongodb": "^4.6.0",
     "redis": "^4.1.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "typeorm": "^0.3.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
