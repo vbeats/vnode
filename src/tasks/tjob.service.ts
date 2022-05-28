@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common'
 import { Interval } from '@nestjs/schedule'
+import * as dayjs from 'dayjs'
 
 @Injectable()
 export class TjobService {
   // @Cron('5 * * * * *')
-  @Interval(3000)
+  @Interval(15000)
   async handleCron() {
-    console.log(Date.now(), 'Cron job executed...........')
+    console.log(dayjs().format('YYYY-MM-DD HH:mm:ss'), 'Cron job executed...........')
   }
 }
