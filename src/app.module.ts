@@ -10,6 +10,9 @@ import { RedisClientOptions } from 'redis'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { UserModule } from './user/user.module'
 import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions'
+import { BullModule } from '@nestjs/bull'
+import { BullModuleOptions } from '@nestjs/bull/dist/interfaces/bull-module-options.interface'
+import { QueueModule } from './queue/queue.module'
 
 @Module({
   imports: [
@@ -30,10 +33,16 @@ import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOp
       useFactory: (config: ConfigService) => ({ ...config.get<RedisClientOptions>('redis') }),
       inject: [ConfigService],
     }),
+    BullModule.registerQueueAsync({
+      imports: [ConfigModule],
+      useFactory: (config: ConfigService) => ({ ...config.get<BullModuleOptions>('bull') }),
+      inject: [ConfigService],
+    }),
     ScheduleModule.forRoot(),
     TestModule,
     TjobModule,
     UserModule,
+    QueueModule,
   ],
   controllers: [],
   providers: [],

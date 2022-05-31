@@ -1,6 +1,8 @@
 # VNode
 
-> nestjs mongo redis typeorm
+> nestjs 脚手架
+
+`mongo` `redis` `typeorm` `bull`
 
 ![Alt](https://repobeats.axiom.co/api/embed/fd5f6c0c07eaaa16a9a32ed5067294da6dbdd4f9.svg "Repobeats analytics image")
 
