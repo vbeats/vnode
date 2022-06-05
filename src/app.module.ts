@@ -6,13 +6,11 @@ import { TjobModule } from './tasks/tjob.module'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import mongoConfig from './config/mongo.config'
 import redisConfig from './config/redis.config'
+import bullConfig from './config/bull.config'
 import { RedisClientOptions } from 'redis'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { UserModule } from './user/user.module'
 import { MongoConnectionOptions } from 'typeorm/driver/mongodb/MongoConnectionOptions'
-import { BullModule } from '@nestjs/bull'
-import { BullModuleOptions } from '@nestjs/bull/dist/interfaces/bull-module-options.interface'
-import { QueueModule } from './queue/queue.module'
 
 @Module({
   imports: [
@@ -20,7 +18,7 @@ import { QueueModule } from './queue/queue.module'
       isGlobal: true,
       cache: true,
       expandVariables: true,
-      load: [mongoConfig, redisConfig],
+      load: [mongoConfig, redisConfig, bullConfig],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -33,16 +31,10 @@ import { QueueModule } from './queue/queue.module'
       useFactory: (config: ConfigService) => ({ ...config.get<RedisClientOptions>('redis') }),
       inject: [ConfigService],
     }),
-    BullModule.registerQueueAsync({
-      imports: [ConfigModule],
-      useFactory: (config: ConfigService) => ({ ...config.get<BullModuleOptions>('bull') }),
-      inject: [ConfigService],
-    }),
     ScheduleModule.forRoot(),
     TestModule,
     TjobModule,
     UserModule,
-    QueueModule,
   ],
   controllers: [],
   providers: [],
