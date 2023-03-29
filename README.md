@@ -20,6 +20,7 @@
 
 ```bash
 ## install
+## Make sure you have `shamefully-hoist=true` in `.npmrc` before running pnpm install
 pnpm install
 
 ## dev
