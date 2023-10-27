@@ -1,6 +1,6 @@
 {
-  "name": "root",
-  "private": true,
+  "name": "vnode",
+  "license": "MIT",
   "workspaces": [
     "packages/*"
   ],
@@ -9,6 +9,6 @@
     "build": "lerna run build --parallel --stream --concurrency=5 && pm2 start ecosystem.config.js"
   },
   "devDependencies": {
-    "lerna": "^6.6.1"
+    "lerna": "latest"
   }
 }
